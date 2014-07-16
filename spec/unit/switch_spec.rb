@@ -1,9 +1,9 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe KnifeSwitch::Switch do
+describe KnifeOrgUtils::Switch do
 
   before :each do
-    @knife = Chef::Knife::Switch.new
+    @knife = KnifeOrgUtils::Switch.new
     @git = double('git')
     allow(::Git).to receive(:open).with('~/.chef').and_return(@git)
     allow(@git).to receive(:status)
