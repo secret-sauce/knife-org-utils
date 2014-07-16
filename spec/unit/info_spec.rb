@@ -27,7 +27,7 @@ describe KnifeOrgUtils::Info do
   end
 
   before :each do
-    @knife = Chef::Knife::KnifeOrgUtils::Info.new
+    @knife = KnifeOrgUtils::Info.new
     Chef::Knife.stub(:locate_config_file).and_return(config_file)
     @knife.stub(:server_url).and_return(url)
     @knife.stub(:username).and_return(username)
