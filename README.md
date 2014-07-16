@@ -1,5 +1,8 @@
 ### Description:
-This is an EXPERIMENTAL knife plugin that allows you to switch your .chef config to point to one of your orgs based on command line options
+This is an EXPERIMENTAL knife plugin that allows you :
+	
+- to switch your .chef config files and keys to point to one of your orgs based on command line options
+- to display information from the `knife.rb` config file in knife's configuration file search path.
 
 ## Installation
 
@@ -22,3 +25,13 @@ git repository and run the following command:
 
   * `--branch`: checkout to this git branch, provided it exists
   * `--list`: list of available branches
+  * `--status`: check the files that are modified/added/deleted
+  * `--commit`: commit all changes to that branch
+
+### `knife info [options]`
+
+*Options*
+
+  * `--tiny`: Show concise information in oneline
+  * `--medium`: Show important information in oneline
+  * `--long`: Show all information in multi-lines
