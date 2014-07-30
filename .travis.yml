@@ -1,3 +1,11 @@
 language: ruby
 rvm:
-  - 2.1.1
+- 2.1.1
+deploy:
+  provider: rubygems
+  gem: knife-org-utils
+  api_key:
+    secure: E1dOqy6UKEXga9+WjgkScU/5k1Y7gUTl74I3Vdgehpz0WwIE65HH8Ld3am3HFSOlzcPBSs/qZ9zCfBMvQmlcoFaqYyPBzwNXN3Z6AmKpu745UfExLeLUVwzo4MZNB/onOivEExvCH4McbU/d86C2j2trX3Ulc+h0180WqU58u78=
+  on:
+    repo: secret-sauce/knife-org-utils
+    ruby: 1.9.3

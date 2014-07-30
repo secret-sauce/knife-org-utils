@@ -23,4 +23,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'coveralls'
+
+  spec.license = 'MIT'
+
+  # prereleases from Travis CI
+  if ENV['CI']
+    digits = spec.version.to_s.split '.'
+    digits[-1] = digits[-1].to_s.succ
+    spec.version = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}"
+  end
 end

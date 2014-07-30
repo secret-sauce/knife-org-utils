@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    knife-org-utils (0.0.2)
+    knife-org-utils (0.0.3)
       chef
       git
 
