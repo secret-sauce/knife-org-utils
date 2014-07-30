@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'chef'
   spec.add_dependency 'git'
+  spec.add_development_dependency 'json', '1.4.6'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
