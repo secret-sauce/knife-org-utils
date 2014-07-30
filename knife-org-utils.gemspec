@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.files = %w(README.md) + Dir.glob('lib/**/*') + Dir.glob('bin/*')
   spec.require_path = 'lib'
 
-  spec.required_ruby_version = '>= 2.1'
+  spec.required_ruby_version = '>= 1.9'
 
   spec.add_dependency 'chef'
   spec.add_dependency 'git'
