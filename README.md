@@ -1,6 +1,9 @@
+knife org utils
+[![Build Status](https://travis-ci.org/secret-sauce/knife-org-utils.svg?branch=master)](https://travis-ci.org/secret-sauce/knife-org-utils)
+
 ### Description:
 This is an EXPERIMENTAL knife plugin that allows you :
-	
+
 - to switch your .chef config files and keys to point to one of your orgs based on command line options
 - to display information from the `knife.rb` config file in knife's configuration file search path.
 
