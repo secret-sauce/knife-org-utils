@@ -9,13 +9,13 @@ Gem::Specification.new do |spec|
   spec.description = 'Manages your .chef org, and provides info about your chef config'
 
   spec.authors = ['Venkat Venkataraju','Shruthi Venkateswaran']
-  spec.email = ['ven@yahoo-inc.com','shruthiv@yahoo.com']
-  spec.homepage = 'https://github.com/shruthi-venkateswaran/knife-org-utils.git'
+  spec.email = ['ven@yahoo-inc.com','shruthiv@yahoo-inc.com']
+  spec.homepage = 'https://github.com/secret-sauce/knife-org-utils.git'
 
   spec.files = %w(README.md) + Dir.glob('lib/**/*') + Dir.glob('bin/*')
   spec.require_path = 'lib'
 
-  spec.required_ruby_version = '>= 1.9'
+  spec.required_ruby_version = '>= 2.1'
 
   spec.add_dependency 'chef'
   spec.add_dependency 'git'

@@ -3,7 +3,8 @@ require 'coveralls'
 Coveralls.wear!
 
 require 'chef/knife'
-require 'chef/knife/org-utils'
+require 'chef/knife/info'
+require 'chef/knife/switch'
 
 class Chef::Knife
   include KnifeOrgUtils

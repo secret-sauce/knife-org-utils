@@ -28,9 +28,9 @@ describe KnifeOrgUtils::Info do
 
   before :each do
     @knife = KnifeOrgUtils::Info.new
-    Chef::Knife.stub(:locate_config_file).and_return(config_file)
-    @knife.stub(:server_url).and_return(url)
-    @knife.stub(:username).and_return(username)
+    allow(Chef::Knife).to receive(:locate_config_file).and_return(config_file)
+    allow(@knife).to receive(:server_url).and_return(url)
+    allow(@knife).to receive(:username).and_return(username)
   end
 
   context 'if env user DOES NOT match' do
@@ -40,13 +40,13 @@ describe KnifeOrgUtils::Info do
 
     it 'and tiny=true should print concise info in oneline' do
       @knife.config[:tiny] = true
-      @knife.ui.should_receive(:msg).with("#{username}@#{host}/#{organization}")
+      expect(@knife.ui).to receive(:msg).with("#{username}@#{host}/#{organization}")
       @knife.run
     end
 
     it 'and medium=true should print info in oneline' do
       @knife.config[:medium] = true
-      @knife.ui.should_receive(:msg).with("#{username}@#{host}.#{domain}/#{organization}")
+      expect(@knife.ui).to receive(:msg).with("#{username}@#{host}.#{domain}/#{organization}")
       @knife.run
     end
   end
@@ -58,13 +58,13 @@ describe KnifeOrgUtils::Info do
 
     it 'and tiny=true should print concise info without username' do
       @knife.config[:tiny] = true
-      @knife.ui.should_receive(:msg).with("#{host}/#{organization}")
+      expect(@knife.ui).to receive(:msg).with("#{host}/#{organization}")
       @knife.run
     end
 
     it 'and medium=true should print concise info without username' do
       @knife.config[:medium] = true
-      @knife.ui.should_receive(:msg).with("#{host}.#{domain}/#{organization}")
+      expect(@knife.ui).to receive(:msg).with("#{host}.#{domain}/#{organization}")
       @knife.run
     end
   end
@@ -78,18 +78,21 @@ describe KnifeOrgUtils::Info do
         "Config File: #{config_file}",
         ""
     ]
-    @knife.ui.should_receive(:msg).with(expected.join("\n"))
+    expect(@knife.ui).to receive(:msg).with(expected.join("\n"))
     @knife.run
   end
 
   context 'if config file is not found' do
     before :each do
-      Chef::Knife.stub(:locate_config_file).and_return(nil)
+      @broken = KnifeOrgUtils::Info.new
+      allow(Chef::Knife).to receive(:locate_config_file).and_return(nil)
+      allow(@broken).to receive(:server_url).and_return(url)
+      allow(@broken).to receive(:username).and_return(username)
     end
 
     it 'should print nothing' do
-      @knife.ui.should_receive(:msg).exactly(0).times
-      @knife.run
+      expect(@broken.ui).to receive(:msg).exactly(0).times
+      @broken.run
     end
   end
 end
