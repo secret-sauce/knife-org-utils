@@ -11,7 +11,7 @@ This is an EXPERIMENTAL knife plugin that allows you :
 ## Installation
 
 This knife plugin is packaged as a gem. To install it, clone this
-git repository and run the following command:
+git repository and run the following command from inside the cloned repo:
 
     rake install
 
