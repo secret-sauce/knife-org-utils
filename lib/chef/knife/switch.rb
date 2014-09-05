@@ -4,7 +4,7 @@ require 'git'
 module KnifeOrgUtils
   class Switch < Chef::Knife
 
-    banner 'knife switch'
+    banner 'knife switch -b BRANCH'
     attr_reader :git
 
     option :branch,
