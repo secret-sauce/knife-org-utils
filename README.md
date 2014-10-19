@@ -23,16 +23,14 @@ git repository and run the following command from inside the cloned repo:
 
 ## Subcommands
 
-### `knife switch [options]`
+### `knife switch BRANCH`
+checkout to this git branch containing your chef credentials, provided it exists
 
-*Options*
-
-  * `--branch`: checkout to this git branch, provided it exists
-  * `--list`: list of available branches
-  * `--status`: check the files that are modified/added/deleted
-  * `--commit`: commit all changes to that branch
+### `knife switch list`
+list of available branches in `~/.chef` folder
 
 ### `knife info [options]`
+prints the current chef server referenced by your `~/.chef/knife.rb`
 
 *Options*
 
