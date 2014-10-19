@@ -23,14 +23,17 @@ git repository and run the following command from inside the cloned repo:
 
 ## Subcommands
 
+### `knife switch add $CHEF_RERO_DIR`
+adds a new git branch in `~/.chef` folder with files from `$CHEF_RERO_DIR/.chef`. The name of the branch will be based on the `chef_server_url` in the `knife.rb` file.
+
 ### `knife switch BRANCH`
-checkout to this git branch containing your chef credentials, provided it exists
+checkout to this git branch containing your chef credentials, provided it exists.
 
 ### `knife switch list`
-list of available branches in `~/.chef` folder
+list of available branches in `~/.chef` folder.
 
 ### `knife info [options]`
-prints the current chef server referenced by your `~/.chef/knife.rb`
+prints the current chef server referenced by your `~/.chef/knife.rb`.
 
 *Options*
 
