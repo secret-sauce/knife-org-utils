@@ -178,7 +178,6 @@ describe KnifeOrgUtils::SwitchAdd do
   end
 
   describe 'SwitchAdd::branch_exists?' do
-
     let :branches do
       branches = []
       5.times do |n|
