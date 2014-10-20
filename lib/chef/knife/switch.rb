@@ -7,12 +7,13 @@ module KnifeOrgUtils
     banner 'knife switch BRANCH'
 
     def run
-      @git = ::Git.open( '~/.chef' )
       unless @name_args.length == 1
         ui.fatal 'You must specify an BRANCH name'
         show_usage
         exit 1
       end
+
+      @git = ::Git.open( '~/.chef' )
 
       begin
         @git.checkout( "#{@name_args[0]}" )
