@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.0'
 
-  spec.add_dependency 'chef'
+  spec.add_dependency 'chef', '= 11.16.4"
   spec.add_dependency 'git'
   spec.add_development_dependency 'json'
   spec.add_development_dependency 'bundler'
