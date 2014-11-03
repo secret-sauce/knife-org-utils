@@ -21,7 +21,7 @@ git repository and run the following command from inside the cloned repo:
   * create branches, each branch containing the appropriate config file and pem files pointing to a specific org
 
 
-## Subcommands
+## Available Subcommands and what they do for you
 
 ### `knife switch add $CHEF_RERO_DIR`
 Imports `.chef` files from `$CHEF_RERO_DIR/.chef` into a new git branch in `~/.chef` folder. The name of the branch will be based on the `chef_server_url` in the `knife.rb` file. Starter Kit is a valid chef-repo directory.
