@@ -5,6 +5,7 @@ require 'chef/knife/info'
 require 'chef/knife/switch'
 require 'chef/knife/switch_list'
 require 'chef/knife/switch_add'
+require 'chef/knife/switch_init'
 
 class Chef::Knife
   include KnifeOrgUtils
