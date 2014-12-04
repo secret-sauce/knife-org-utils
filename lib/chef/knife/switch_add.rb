@@ -107,11 +107,12 @@ module KnifeOrgUtils
       config_name = get_config_name
       dest_path = get_dest_path config_name
 
-      unless ::File.directory? dest_path
+      if ::File.directory? dest_path
+        ui.info "Configuration for #{dest_path} already exists."
+      else
         ::FileUtils.mkpath dest_path
         copy_files( kit_files )
-      else
-        ui.info "Configuration for #{dest_path} already exists."
+        ui.msg "Added #{config_name} to #{root}."
       end
     end
   end

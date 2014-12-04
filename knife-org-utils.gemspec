@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.summary = 'knife org'
   spec.description = 'Manages your .chef org, and provides info about your chef config'
 
-  spec.authors = ['Venkat Venkataraju','Shruthi Venkateswaran']
-  spec.email = ['ven@yahoo-inc.com','shruthiv@yahoo-inc.com']
+  spec.authors = ['Venkat Venkataraju', 'Shruthi Venkateswaran']
+  spec.email = ['ven@yahoo-inc.com', 'shruthiv@yahoo-inc.com']
   spec.homepage = 'https://github.com/secret-sauce/knife-org-utils.git'
 
   spec.files = %w(README.md) + Dir.glob('lib/**/*') + Dir.glob('bin/*')
@@ -18,8 +18,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.0'
 
   spec.add_dependency 'chef', '= 11.16.4'
-  spec.add_dependency 'git'
-  spec.add_development_dependency 'json'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'

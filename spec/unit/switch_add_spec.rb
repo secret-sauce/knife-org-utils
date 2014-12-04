@@ -2,12 +2,16 @@ require File.expand_path( '../../spec_helper', __FILE__ )
 
 describe KnifeOrgUtils::SwitchAdd do
 
+  let :config_name do
+    'HOST/ORG'
+  end
+
   let :mock_dot_chef do
     '/path/to/chef/files'
   end
 
   let :mock_dest_path do
-    ::File.join( mock_dot_chef, 'HOST/ORG')
+    ::File.join( mock_dot_chef, config_name )
   end
 
   let :mock_dot_chef_files do
@@ -71,9 +75,11 @@ describe KnifeOrgUtils::SwitchAdd do
 
     context 'and branch does not exist' do
       it 'calls necessary methods' do
+        expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
         allow( ::File ).to receive( :directory? ).and_return( false )
         expect( ::FileUtils ).to receive( :mkpath ).once
         expect( @knife ).to receive( :copy_files ).once
+        expect( @knife.ui ).to receive( :msg ).with( "Added #{config_name} to #{mock_dot_chef}.")
         @knife.run
       end
     end

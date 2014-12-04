@@ -71,18 +71,16 @@ module KnifeOrgUtils
         output.write( "server_dir = '#{server_dir}'\n" )
         output.write( "org_dir = '#{org_dir}'\n" )
 
-        File.open( source_knife_config, 'r' ) do | input |
-          input.each_line do |line|
-            %r{^(?<method>[a-zA-Z0-9_]+)\s+(?<param>.*)$} =~ line
-            if config_methods.include? method
-
-              dest_dir = ( method == 'client_key' ) ? 'server_dir' : 'org_dir'
-              param.gsub!( '#{current_dir}', "\#\{#{dest_dir}\}" )
-              output.write "#{method} #{param}\n"
-            end
+        File.foreach( source_knife_config ) do | line |
+          %r{^(?<method>[a-zA-Z0-9_]+)\s+(?<param>.*)$} =~ line
+          if config_methods.include? method
+            dest_dir = ( method == 'client_key' ) ? 'server_dir' : 'org_dir'
+            param.gsub!( '#{current_dir}', "\#\{#{dest_dir}\}" )
+            output.write "#{method} #{param}\n"
           end
         end
       end
+      ui.msg "Switched to #{config_name} knife config."
     end
   end
 end
