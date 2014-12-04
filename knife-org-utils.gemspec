@@ -28,6 +28,6 @@ Gem::Specification.new do |spec|
   if ENV['CI']
     digits = spec.version.to_s.split '.'
     digits[-1] = digits[-1].to_s.succ
-    spec.version = digits.join('.') + ".travis.#{ENV['TRAVIS_JOB_NUMBER']}"
+    spec.version = digits.join('.') + ".beta.#{ENV['TRAVIS_JOB_NUMBER']}"
   end
 end
