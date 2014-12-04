@@ -15,12 +15,12 @@ Gem::Specification.new do |spec|
   spec.files = %w(README.md) + Dir.glob('lib/**/*') + Dir.glob('bin/*')
   spec.require_path = 'lib'
 
-  spec.required_ruby_version = '>= 2.0'
+  spec.required_ruby_version = '~> 2.0'
 
-  spec.add_dependency 'chef', '= 11.16.4'
-  spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec'
+  spec.add_runtime_dependency 'chef', '~> 11.16', '>= 11.16.4'
+  spec.add_development_dependency 'bundler', '~> 0'
+  spec.add_development_dependency 'rake', '~> 0'
+  spec.add_development_dependency 'rspec', '~> 0'
 
   spec.license = 'MIT'
 
