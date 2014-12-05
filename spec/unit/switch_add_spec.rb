@@ -123,10 +123,37 @@ describe KnifeOrgUtils::SwitchAdd do
     describe 'SwitchAdd.copy_files' do
       it 'copies files into dot chef folder' do
         expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
+        expect( ::File ).to receive( :exist? ).exactly(3).times.and_return( false )
+
         expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/org-validator.pem', '/path/to/chef/files/HOST/ORG/org-validator.pem' )
         expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/knife.rb', '/path/to/chef/files/HOST/ORG/knife.rb' )
         expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/user.pem', '/path/to/chef/files/HOST/user.pem' )
         @knife.copy_files( mock_dot_chef_files )
+      end
+
+      context 'if destination file exists' do
+        before :each do
+          @source_sha = double( 'Digest::SHA2' )
+          @dest_sha = double( 'Digest::SHA2' )
+          expect( Digest::SHA2 ).to receive( :file ).and_return( @source_sha )
+          expect( Digest::SHA2 ).to receive( :file ).and_return( @dest_sha )
+          expect( @source_sha ).to receive( :hexdigest ).and_return( 'nothing' )
+          expect( ::File ).to receive( :exist? ).and_return( true )
+        end
+
+        it 'copy is skipped if contents are same' do
+          expect( @dest_sha ).to receive( :hexdigest ).and_return( 'nothing' )
+          expect( ::FileUtils ).not_to receive( :copy ).with( '/path/to/chef/files/user.pem', '/path/to/chef/files/HOST/user.pem' )
+          expect( @knife.ui ).not_to receive( :warn )
+          @knife.copy_files( %w{/path/to/chef/files/user.pem} )
+        end
+
+        it 'copy is skipped with warning if contents are different' do
+          expect( @dest_sha ).to receive( :hexdigest ).and_return( 'something' )
+          expect( ::FileUtils ).not_to receive( :copy ).with( '/path/to/chef/files/user.pem', '/path/to/chef/files/HOST/user.pem' )
+          expect( @knife.ui ).to receive( :warn ).with( "File /Users/vvenkat/.chef/HOST/user.pem already exists with different content. Skipped." )
+          @knife.copy_files( %w{/path/to/chef/files/user.pem} )
+        end
       end
     end
   end

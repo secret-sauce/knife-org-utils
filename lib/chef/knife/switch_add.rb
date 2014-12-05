@@ -1,5 +1,6 @@
 require 'chef/knife'
 require 'fileutils'
+require "digest"
 
 module KnifeOrgUtils
   class SwitchAdd < Chef::Knife
@@ -82,17 +83,22 @@ module KnifeOrgUtils
     end
 
     def copy_files( files )
-
       server_dir = ::File.join( root, server )
       org_dir = ::File.join( server_dir, org )
 
-      files.each do | file |
-        filename = ::File.basename file
+      files.each do | source |
+        filename = ::File.basename source
 
         dest_dir = ( user_pem == filename ) ? server_dir : org_dir
         dest = ::File.join( dest_dir, filename )
 
-        ::FileUtils.copy( file, dest )
+        if ::File.exist?( dest )
+          source_sha = Digest::SHA2.file( source ).hexdigest
+          dest_sha = Digest::SHA2.file( dest ).hexdigest
+          ui.warn "File #{dest} already exists with different content. Skipped." unless source_sha.eql?( dest_sha )
+        else
+          ::FileUtils.copy( source, dest )
+        end
       end
     end
 
