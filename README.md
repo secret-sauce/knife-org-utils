@@ -2,10 +2,16 @@
 [![Gem Version](https://badge.fury.io/rb/knife-org-utils.svg)](http://badge.fury.io/rb/knife-org-utils) [![Build Status](https://travis-ci.org/secret-sauce/knife-org-utils.svg?branch=master)](https://travis-ci.org/secret-sauce/knife-org-utils) [![Dependency Status](https://gemnasium.com/secret-sauce/knife-org-utils.svg)](https://gemnasium.com/secret-sauce/knife-org-utils)
 
 
-### Description:
+## :no_entry: Warning :no_entry:
+
+Run `knife switch init` first.  
+
+Pre 1.0.0 version used git to manage the `~/.chef` folder. Version 1.0.x and above will not use git to manage the `~/.chef` directory. Please backup your `~/.chef` directory before adding new configurations.
+
+## Description:
 This is an EXPERIMENTAL knife plugin that allows you :
 
-- to switch your .chef config files and keys to point to one of your orgs based on command line options
+- to switch config files and keys in `~/.chef` quickly from command line.
 - to display information from the `knife.rb` config file in knife's configuration file search path.
 
 ## Installation
@@ -15,22 +21,22 @@ git repository and run the following command from inside the cloned repo:
 
     rake install
 
-
 ## Requirements
-  * create a `~/.chef` directory on your workstation and make it a git repo
-  * create branches, each branch containing the appropriate config file and pem files pointing to a specific org
-
+:warning: backup your current `~/.chef` directory :warning:
 
 ## Available Subcommands and what they do for you
 
-### `knife switch add $CHEF_RERO_DIR`
-Imports `.chef` files from `$CHEF_RERO_DIR/.chef` into a new git branch in `~/.chef` folder. The name of the branch will be based on the `chef_server_url` in the `knife.rb` file. Starter Kit is a valid chef-repo directory.
+### `knife switch init`
+Initializes your `.chef` directory.
 
-### `knife switch BRANCH`
-checkout to this git branch containing your chef credentials, provided it exists.
+### `knife switch add $CHEF_RERO_DIR`
+Imports `.chef` files from `$CHEF_RERO_DIR/.chef` into `~/.chef` folder. The name of the imported CONFIG will be based on the `chef_server_url` in the `knife.rb` file. Starter Kit is a valid chef-repo directory.
+
+### `knife switch CONFIG`
+switches the configuration in `~/.chef` to the named CONFIG
 
 ### `knife switch list`
-list of available branches in `~/.chef` folder.
+list of available CONFIGS in `~/.chef` folder.
 
 ### `knife info [options]`
 prints the current chef server referenced by your `~/.chef/knife.rb`.
