@@ -139,6 +139,7 @@ describe KnifeOrgUtils::SwitchAdd do
           expect( Digest::SHA2 ).to receive( :file ).and_return( @dest_sha )
           expect( @source_sha ).to receive( :hexdigest ).and_return( 'nothing' )
           expect( ::File ).to receive( :exist? ).and_return( true )
+          expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
         end
 
         it 'copy is skipped if contents are same' do
@@ -151,7 +152,7 @@ describe KnifeOrgUtils::SwitchAdd do
         it 'copy is skipped with warning if contents are different' do
           expect( @dest_sha ).to receive( :hexdigest ).and_return( 'something' )
           expect( ::FileUtils ).not_to receive( :copy ).with( '/path/to/chef/files/user.pem', '/path/to/chef/files/HOST/user.pem' )
-          expect( @knife.ui ).to receive( :warn ).with( "File /Users/vvenkat/.chef/HOST/user.pem already exists with different content. Skipped." )
+          expect( @knife.ui ).to receive( :warn ).with( "File /path/to/chef/files/HOST/user.pem already exists with different content. Skipped." )
           @knife.copy_files( %w{/path/to/chef/files/user.pem} )
         end
       end
