@@ -35,6 +35,7 @@ Imports `.chef` files from `$CHEF_RERO_DIR/.chef` into `~/.chef` folder. The nam
 
 *Options*
   * `--overwrite`: Overwrites configuration files if they exists
+
 - - -
 
 ### `knife switch CONFIG`
