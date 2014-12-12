@@ -7,6 +7,12 @@ module KnifeOrgUtils
 
     banner 'knife switch add CHEF_RERO_DIR'
 
+    option :overwrite,
+      :long => '--overwrite',
+      :description => 'Overwrites configuration files if they exists',
+      :boolean => true | false,
+      :default => false
+
     def kit_path
       @kit_path ||= ::File.join( ::File.expand_path( @name_args[0] ), '.chef' )
     end
@@ -92,12 +98,12 @@ module KnifeOrgUtils
         dest_dir = ( user_pem == filename ) ? server_dir : org_dir
         dest = ::File.join( dest_dir, filename )
 
-        if ::File.exist?( dest )
+        if ( !(::File.exist?( dest )) || config[:overwrite] )
+          ::FileUtils.copy( source, dest )
+        else
           source_sha = Digest::SHA2.file( source ).hexdigest
           dest_sha = Digest::SHA2.file( dest ).hexdigest
           ui.warn "File #{dest} already exists with different content. Skipped." unless source_sha.eql?( dest_sha )
-        else
-          ::FileUtils.copy( source, dest )
         end
       end
     end
@@ -113,12 +119,12 @@ module KnifeOrgUtils
       config_name = get_config_name
       dest_path = get_dest_path config_name
 
-      if ::File.directory? dest_path
-        ui.info "Configuration for #{dest_path} already exists."
-      else
+      if ( !(::File.directory? dest_path) || config[:overwrite] )
         ::FileUtils.mkpath dest_path
         copy_files( kit_files )
         ui.msg "Added #{config_name} to #{root}."
+      else
+        ui.info "Configuration for #{dest_path} already exists."
       end
     end
   end

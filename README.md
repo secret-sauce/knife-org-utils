@@ -28,15 +28,22 @@ git repository and run the following command from inside the cloned repo:
 
 ### `knife switch init`
 Initializes your `.chef` directory.
+- - -
 
 ### `knife switch add $CHEF_RERO_DIR`
 Imports `.chef` files from `$CHEF_RERO_DIR/.chef` into `~/.chef` folder. The name of the imported CONFIG will be based on the `chef_server_url` in the `knife.rb` file. Starter Kit is a valid chef-repo directory.
 
+*Options*
+  * `--overwrite`: Overwrites configuration files if they exists
+- - -
+
 ### `knife switch CONFIG`
 switches the configuration in `~/.chef` to the named CONFIG
+- - -
 
 ### `knife switch list`
 list of available CONFIGS in `~/.chef` folder.
+- - -
 
 ### `knife info [options]`
 prints the current chef server referenced by your `~/.chef/knife.rb`.

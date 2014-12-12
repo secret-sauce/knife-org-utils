@@ -85,9 +85,23 @@ describe KnifeOrgUtils::SwitchAdd do
     end
 
     context 'and branch does exist' do
-      it 'exists with proper message' do
+      before :each do
         allow( ::File ).to receive( :directory? ).and_return( true )
+      end
+
+      it 'exists with proper message' do
         expect( @knife.ui ).to receive( :info ).with( "Configuration for #{mock_dest_path} already exists." )
+        expect( ::FileUtils ).not_to receive( :mkpath )
+        expect( @knife ).not_to receive( :copy_files )
+        @knife.run
+      end
+
+      it 'calls copy if overwrite option is set' do
+        @knife.config[:overwrite] = true
+        expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
+        expect( ::FileUtils ).to receive( :mkpath ).once
+        expect( @knife ).to receive( :copy_files ).once
+        expect( @knife.ui ).to receive( :msg ).with( "Added #{config_name} to #{mock_dot_chef}.")
         @knife.run
       end
     end
@@ -124,22 +138,26 @@ describe KnifeOrgUtils::SwitchAdd do
       it 'copies files into dot chef folder' do
         expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
         expect( ::File ).to receive( :exist? ).exactly(3).times.and_return( false )
-
         expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/org-validator.pem', '/path/to/chef/files/HOST/ORG/org-validator.pem' )
         expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/knife.rb', '/path/to/chef/files/HOST/ORG/knife.rb' )
         expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/user.pem', '/path/to/chef/files/HOST/user.pem' )
         @knife.copy_files( mock_dot_chef_files )
       end
+    end
 
-      context 'if destination file exists' do
+    context 'if destination file exists' do
+      before :each do
+        expect( ::File ).to receive( :exist? ).and_return( true )
+        expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
+      end
+
+      context 'and overwrite not set' do
         before :each do
           @source_sha = double( 'Digest::SHA2' )
           @dest_sha = double( 'Digest::SHA2' )
           expect( Digest::SHA2 ).to receive( :file ).and_return( @source_sha )
           expect( Digest::SHA2 ).to receive( :file ).and_return( @dest_sha )
           expect( @source_sha ).to receive( :hexdigest ).and_return( 'nothing' )
-          expect( ::File ).to receive( :exist? ).and_return( true )
-          expect( @knife ).to receive( :root ).and_return( mock_dot_chef )
         end
 
         it 'copy is skipped if contents are same' do
@@ -155,6 +173,13 @@ describe KnifeOrgUtils::SwitchAdd do
           expect( @knife.ui ).to receive( :warn ).with( "File /path/to/chef/files/HOST/user.pem already exists with different content. Skipped." )
           @knife.copy_files( %w{/path/to/chef/files/user.pem} )
         end
+      end
+
+      it 'copies files if overwrite option is set' do
+        @knife.config[:overwrite] = true
+        expect( ::FileUtils ).to receive( :copy ).with( '/path/to/chef/files/user.pem', '/path/to/chef/files/HOST/user.pem' )
+        expect( @knife.ui ).not_to receive( :warn )
+        @knife.copy_files( %w{/path/to/chef/files/user.pem} )
       end
     end
   end
