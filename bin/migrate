@@ -1,0 +1,40 @@
+#! /usr/bin/env ruby
+
+require 'git'
+
+def git
+  Git.open( '/tmp/chef-repo/.chef' )
+end
+
+def get_branches
+  branches = git.branches.local.map do | branch |
+
+    branch.name
+  end
+
+  branches.reject do | branch |
+    branch == 'master'
+  end
+end
+
+def backup
+  src = File.expand_path( '~' )
+  dest = '/tmp/chef-repo'
+
+  fail "#{src}/.chef not found" unless File.directory? "#{src}/.chef"
+
+  FileUtils.rm_rf dest
+  FileUtils.mkpath dest
+  FileUtils.mv( "#{src}/.chef", "#{dest}/.chef" )
+end
+
+backup
+branches = get_branches
+
+branches.each do | branch |
+  puts "Adding #{branch}"
+  git.branch( branch ).checkout
+  `knife switch add /tmp/chef-repo --overwrite`
+end
+
+`knife switch #{branches.first}`
