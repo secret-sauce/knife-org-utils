@@ -4,7 +4,7 @@
 
 ## :no_entry: Warning :no_entry:
 
-Run `knife switch init` first.  
+Run `bin/migrate` if you have your current `~/.chef` folder managed by pre 1.0.x version if `knife-org-utils`.
 
 Pre 1.0.0 version used git to manage the `~/.chef` folder. Version 1.0.x and above will not use git to manage the `~/.chef` directory. Please backup your `~/.chef` directory before adding new configurations.
 
@@ -16,10 +16,9 @@ This is an EXPERIMENTAL knife plugin that allows you :
 
 ## Installation
 
-This knife plugin is packaged as a gem. To install it, clone this
-git repository and run the following command from inside the cloned repo:
+This knife plugin is packaged as a gem and is available on [rubygems.org](http://rubygems.org/gems/knife-org-utils).
 
-    rake install
+    gem install knife-org-utils
 
 ## Requirements
 :warning: backup your current `~/.chef` directory :warning:
