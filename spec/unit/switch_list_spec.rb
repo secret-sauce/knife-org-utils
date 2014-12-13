@@ -51,5 +51,4 @@ describe KnifeOrgUtils::SwitchList do
     expect( @knife.ui ).to receive( :msg ).with( '   server3/org1' )
     @knife.run
   end
-
 end

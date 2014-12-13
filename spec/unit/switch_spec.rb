@@ -87,6 +87,14 @@ describe KnifeOrgUtils::Switch do
         @knife.run
       end
     end
+  end
 
+  context 'parse_config_name' do
+    it 'parses server and org' do
+      @knife.name_args << 'server_3/org_1'
+      expect( @knife.server ).to eq( 'server_3' )
+      expect( @knife.org ).to eq( 'org_1' )
+      @knife.parse_config_name
+    end
   end
 end
