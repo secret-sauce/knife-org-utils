@@ -28,6 +28,9 @@ def backup
   FileUtils.mv( "#{src}/.chef", "#{dest}/.chef" )
 end
 
+puts 'Installing most recent knife-org-utils gem'
+`gem install knife-org-utils`
+
 backup
 branches = get_branches
 
@@ -37,4 +40,6 @@ branches.each do | branch |
   `knife switch add /tmp/chef-repo --overwrite`
 end
 
-`knife switch #{branches.first}`
+path = File.expand_path( '~/.chef' )
+branch = Dir.glob( "#{path}/*/*" ).last.gsub(%r{^#{path}/}, '').chomp('/')
+`knife switch #{branch}`
