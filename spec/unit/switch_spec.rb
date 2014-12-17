@@ -96,5 +96,12 @@ describe KnifeOrgUtils::Switch do
       expect( @knife.org ).to eq( 'org_1' )
       @knife.parse_config_name
     end
+
+    it 'parses server and org with -\'s' do
+      @knife.name_args << 'server-3/org-1'
+      expect( @knife.server ).to eql( 'server-3')
+      expect( @knife.org ).to eq( 'org-1' )
+      @knife.parse_config_name
+    end
   end
 end

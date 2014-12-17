@@ -24,7 +24,7 @@ module KnifeOrgUtils
     end
 
     def parse_config_name
-      %r{^(?<server>[a-zA-Z0-9_]+)/(?<org>[a-zA-Z0-9_]+)$} =~ config_name
+      %r{^(?<server>[a-zA-Z0-9_-]+)/(?<org>[a-zA-Z0-9_-]+)$} =~ config_name
       @server = server
       @org = org
     end
