@@ -4,9 +4,13 @@
 
 ## :no_entry: Warning :no_entry:
 
-Run `bin/migrate` if you have your current `~/.chef` folder managed by pre 1.0.x version if `knife-org-utils`.
+If you are using pre 1.0.x version of `knife-org-utils, please follow this instructions for migration.
 
-Pre 1.0.0 version used git to manage the `~/.chef` folder. Version 1.0.x and above will not use git to manage the `~/.chef` directory. Please backup your `~/.chef` directory before adding new configurations.
+    git clone git@github.com:secret-sauce/knife-org-utils.git
+    gem install knife-org-utils -v 1.1.1
+    ./knife-org-utils/bin/migrate
+
+This script will migrate your existing git based `~/.chef` to the new directory layout. your old `~/.chef` folder will be backed up at `/tmp/chef-repo/.chef`.
 
 ## Description:
 This is an EXPERIMENTAL knife plugin that allows you :
